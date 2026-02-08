@@ -58,12 +58,13 @@ architecture test_bench of thirtyOneDayMonth_tb is
   -- declare the component of your top-level design unit under test (UUT) (looks very similar to entity declaration)
   component thirtyoneDayMonth is
     port(
+    i_D : in std_logic;
+    
 	i_A : in std_logic;
 	i_B : in std_logic;
 	i_C : in std_logic;
-	i_D : in std_logic;
 	o_Y : out std_logic
-    );	
+  );	
   end component;
 
   -- declare any additional components required
@@ -75,13 +76,15 @@ architecture test_bench of thirtyOneDayMonth_tb is
 begin
 	-- PORT MAPS ----------------------------------------
 	-- map ports for any component instances (port mapping is like wiring hardware)
-    thirtyOneDayMonthMux_inst : thirtyOneDayMonth port map (
-			i_D => w_sw(3),
-			i_C => w_sw(2),
-			i_B => w_sw(1),
-			i_A => w_sw(0),
-	    		o_Y => w_Y
-        );
+    thirtyOneDayMonth_inst : thirtyOneDayMonth port map (
+        -- Select Lines (A,B,C) get the upper switch bits (3,2,1)
+        i_A => w_sw(3),
+        i_B => w_sw(2),
+        i_C => w_sw(1),
+        i_D => w_sw(0),
+        
+        o_Y => w_Y
+    );
 	-----------------------------------------------------
 
 	-- PROCESSES ----------------------------------------	
@@ -94,6 +97,29 @@ begin
             assert w_Y = '0' report "error on x0" severity failure;
         w_sw <= x"1"; wait for 10 ns;
             assert w_Y = '1' report "error on Jan" severity failure;   
+        w_sw <= x"2"; wait for 10 ns;
+            assert w_Y = '0' report "error on Feb" severity failure;
+        w_sw <= x"3"; wait for 10 ns;
+            assert w_Y = '1' report "error on Mar" severity failure;
+        w_sw <= x"4"; wait for 10 ns;
+            assert w_Y = '0' report "error on Apr" severity failure;
+        w_sw <= x"5"; wait for 10 ns;
+            assert w_Y = '1' report "error on May" severity failure;
+        w_sw <= x"6"; wait for 10 ns;
+            assert w_Y = '0' report "error on Jun" severity failure;
+        w_sw <= x"7"; wait for 10 ns;
+            assert w_Y = '1' report "error on Jul" severity failure;
+        w_sw <= x"8"; wait for 10 ns;
+            assert w_Y = '1' report "error on Aug" severity failure;
+        w_sw <= x"9"; wait for 10 ns;
+            assert w_Y = '0' report "error on Sep" severity failure;
+        w_sw <= x"A"; wait for 10 ns;
+            assert w_Y = '1' report "error on Oct" severity failure;
+        w_sw <= x"B"; wait for 10 ns;
+            assert w_Y = '0' report "error on Nov" severity failure;
+        w_sw <= x"C"; wait for 10 ns;
+            assert w_Y = '1' report "error on Dec" severity failure; 
+        
 
 		wait; -- wait forever
 	end process;	
