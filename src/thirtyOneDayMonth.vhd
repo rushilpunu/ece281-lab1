@@ -68,12 +68,10 @@ architecture thirtyOneDayMonth_arch of thirtyOneDayMonth is
   signal w_sel : std_logic_vector(2 downto 0);
 begin
 
-  -- Select lines: S2,S1,S0 = A,B,C
   w_sel(2) <= i_A;
   w_sel(1) <= i_B;
   w_sel(0) <= i_C;
 
-  -- 8:1 mux (pure)
 with w_sel select
     o_Y <= i_D when "000",
            i_D when "001",

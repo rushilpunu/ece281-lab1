@@ -67,7 +67,6 @@ architecture test_bench of thirtyOneDayMonth_tb is
   );	
   end component;
 
-  -- declare any additional components required
   
   signal w_sw : std_logic_vector (3 downto 0):= (others=> '0');
   signal w_Y : std_logic := '0';
@@ -75,9 +74,7 @@ architecture test_bench of thirtyOneDayMonth_tb is
   
 begin
 	-- PORT MAPS ----------------------------------------
-	-- map ports for any component instances (port mapping is like wiring hardware)
     thirtyOneDayMonth_inst : thirtyOneDayMonth port map (
-        -- Select Lines (A,B,C) get the upper switch bits (3,2,1)
         i_A => w_sw(3),
         i_B => w_sw(2),
         i_C => w_sw(1),
@@ -88,8 +85,7 @@ begin
 	-----------------------------------------------------
 
 	-- PROCESSES ----------------------------------------	
-	-- Test Plan Process --------------------------------
-	-- Implement the test plan here.  Body of process is continuous from time = 0  
+
 	test_process : process 
 	begin
 	-- Place test cases here. The first two have been written for you
